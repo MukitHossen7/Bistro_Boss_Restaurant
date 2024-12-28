@@ -33,7 +33,7 @@ const Navbar = () => {
               <NavLink>OUR SHOP</NavLink>
             </ul>
           </div>
-          <h2 className="text-2xl font-medium">BISTRO BOSS</h2>
+          <h2 className="text-lg lg:text-2xl font-medium">BISTRO BOSS</h2>
         </div>
 
         <div className="navbar-end gap-7">

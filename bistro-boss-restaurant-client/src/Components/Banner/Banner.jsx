@@ -8,7 +8,7 @@ import img5 from "../../assets/home/05.png";
 import img6 from "../../assets/home/06.png";
 const Banner = () => {
   return (
-    <div className="pt-10">
+    <div className="pt-6 lg:pt-10">
       <Carousel showArrows={true} autoPlay={true} className="text-center">
         <div>
           <img src={img1} className="rounded-md" />
