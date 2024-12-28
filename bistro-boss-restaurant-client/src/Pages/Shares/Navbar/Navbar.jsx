@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="w-11/12 md:w-11/12 lg:w-11/12 xl:container mx-auto pt-4">
-      <div className="navbar bg-base-100">
+    <div className="w-11/12 md:w-11/12 lg:w-11/12 xl:container mx-auto sticky top-0 z-40">
+      <div className="navbar bg-white  pt-4">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -26,11 +26,11 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow gap-3"
             >
-              <NavLink>Home</NavLink>
-              <NavLink>Contact us</NavLink>
-              <NavLink>Dashboard</NavLink>
-              <NavLink>Our Menu</NavLink>
-              <NavLink>Our Shop</NavLink>
+              <NavLink>HOME</NavLink>
+              <NavLink>CONTACT US</NavLink>
+              <NavLink>DASHBOARD</NavLink>
+              <NavLink>OUR MENU</NavLink>
+              <NavLink>OUR SHOP</NavLink>
             </ul>
           </div>
           <h2 className="text-2xl font-medium">BISTRO BOSS</h2>
@@ -39,11 +39,11 @@ const Navbar = () => {
         <div className="navbar-end gap-7">
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 gap-7 font-medium">
-              <NavLink>Home</NavLink>
-              <NavLink>Contact us</NavLink>
-              <NavLink>Dashboard</NavLink>
-              <NavLink>Our Menu</NavLink>
-              <NavLink>Our Shop</NavLink>
+              <NavLink>HOME</NavLink>
+              <NavLink>CONTACT US</NavLink>
+              <NavLink>DASHBOARD</NavLink>
+              <NavLink>OUR MENU</NavLink>
+              <NavLink>OUR SHOP</NavLink>
             </ul>
           </div>
 
