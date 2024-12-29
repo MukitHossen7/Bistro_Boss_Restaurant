@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 const MenuDesign = ({ menuItem }) => {
-  console.log(menuItem);
   const { name, recipe, image, price } = menuItem;
   return (
     <div className="flex gap-4 items-start">
