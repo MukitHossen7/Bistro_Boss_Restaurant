@@ -3,6 +3,7 @@ import MainLayouts from "../Layouts/MainLayouts";
 import Home from "../Pages/Home/Home";
 
 import MenuPage from "../Pages/MenuPage/MenuPage";
+import ShopPage from "../Pages/ShopPage/ShopPage";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/menu",
         element: <MenuPage></MenuPage>,
+      },
+      {
+        path: "/shop",
+        element: <ShopPage></ShopPage>,
       },
     ],
   },

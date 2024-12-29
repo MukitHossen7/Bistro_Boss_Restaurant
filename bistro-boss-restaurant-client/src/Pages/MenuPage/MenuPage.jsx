@@ -58,7 +58,7 @@ Desserts are a sweet course typically served at the end of a meal, enhancing the
       </div>
       {/* Desserts data */}
       <div className="  w-11/12 md:w-11/12 lg:w-11/12 xl:container mx-auto grid lg:grid-cols-2 gap-6 mt-24">
-        {desserts.map((offer) => (
+        {desserts.slice(0, 6).map((offer) => (
           <div key={offer._id}>
             <MenuDesign menuItem={offer}></MenuDesign>
           </div>
@@ -79,7 +79,7 @@ Desserts are a sweet course typically served at the end of a meal, enhancing the
       </div>
       {/* Pizza data */}
       <div className=" w-11/12 md:w-11/12 lg:w-11/12 xl:container mx-auto grid lg:grid-cols-2 gap-6 mt-24">
-        {pizzas.map((offer) => (
+        {pizzas.slice(0, 6).map((offer) => (
           <div key={offer._id}>
             <MenuDesign menuItem={offer}></MenuDesign>
           </div>
@@ -100,7 +100,7 @@ Desserts are a sweet course typically served at the end of a meal, enhancing the
       </div>
       {/* Salads data */}
       <div className=" w-11/12 md:w-11/12 lg:w-11/12 xl:container mx-auto grid lg:grid-cols-2 gap-6 mt-24">
-        {salads.map((offer) => (
+        {salads.slice(0, 6).map((offer) => (
           <div key={offer._id}>
             <MenuDesign menuItem={offer}></MenuDesign>
           </div>
@@ -122,7 +122,7 @@ Soups are a comforting and versatile dish made by simmering ingredients in water
       </div>
       {/* Soups data */}
       <div className=" w-11/12 md:w-11/12 lg:w-11/12 xl:container mx-auto grid lg:grid-cols-2 gap-6 mt-24">
-        {soups.map((offer) => (
+        {soups.slice(0, 6).map((offer) => (
           <div key={offer._id}>
             <MenuDesign menuItem={offer}></MenuDesign>
           </div>
