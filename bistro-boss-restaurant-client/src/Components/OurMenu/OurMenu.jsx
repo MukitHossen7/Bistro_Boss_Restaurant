@@ -26,7 +26,7 @@ const OurMenu = () => {
         ))}
       </div>
       <div className="flex justify-center">
-        <button className="text-lg lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
+        <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
           View Full Menu
         </button>
       </div>

@@ -3,7 +3,7 @@ const Cover = ({ img, title, description }) => {
   return (
     <div>
       <div
-        className="hero py-28 px-72"
+        className="hero py-16 lg:py-28 px-10 lg:px-72"
         style={{
           backgroundImage: `url("${img}")`,
         }}
