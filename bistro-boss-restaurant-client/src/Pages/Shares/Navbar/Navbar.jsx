@@ -39,10 +39,10 @@ const Navbar = () => {
         <div className="navbar-end gap-7">
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 gap-7 font-medium">
-              <NavLink>HOME</NavLink>
+              <NavLink to="/">HOME</NavLink>
               <NavLink>CONTACT US</NavLink>
               <NavLink>DASHBOARD</NavLink>
-              <NavLink>OUR MENU</NavLink>
+              <NavLink to="/menu">OUR MENU</NavLink>
               <NavLink>OUR SHOP</NavLink>
             </ul>
           </div>
