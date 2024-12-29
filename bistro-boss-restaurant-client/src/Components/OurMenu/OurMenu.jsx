@@ -13,7 +13,7 @@ const OurMenu = () => {
       });
   }, []);
   return (
-    <div className="mt-20">
+    <div className="mt-20 ">
       <SectionTitle
         subHeading="Check it out"
         heading="FROM OUR MENU"
@@ -24,6 +24,11 @@ const OurMenu = () => {
             <MenuDesign menuItem={menuItem}></MenuDesign>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center">
+        <button className="text-lg lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
+          View Full Menu
+        </button>
       </div>
     </div>
   );

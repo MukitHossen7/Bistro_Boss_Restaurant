@@ -33,7 +33,9 @@ const Featured = () => {
                 perfection. This meal is sure to delight your taste buds and
                 leave you wanting more.
               </p>
-              <button className="btn btn-primary uppercase">Read More</button>
+              <button className="text-lg lg:text-lg font-semibold  uppercase  border-b-2 px-3 py-1 rounded-md">
+                Read More
+              </button>
             </div>
           </div>
         </div>
