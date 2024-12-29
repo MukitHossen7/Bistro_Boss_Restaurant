@@ -2,6 +2,7 @@ import Banner from "../../Components/Banner/Banner";
 import Categorys from "../../Components/Categorys/Categorys";
 import Featured from "../../Components/Feature/Featured";
 import OurMenu from "../../Components/OurMenu/OurMenu";
+import Testimonials from "../../Components/Testimonials/Testimonials";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Categorys></Categorys>
       <OurMenu></OurMenu>
       <Featured></Featured>
+      <Testimonials></Testimonials>
     </div>
   );
 };
