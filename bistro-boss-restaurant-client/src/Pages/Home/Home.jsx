@@ -1,5 +1,6 @@
 import Banner from "../../Components/Banner/Banner";
 import Categorys from "../../Components/Categorys/Categorys";
+import ChefRecommends from "../../Components/ChefRecommends/ChefRecommends";
 import Featured from "../../Components/Feature/Featured";
 import OurMenu from "../../Components/OurMenu/OurMenu";
 import Testimonials from "../../Components/Testimonials/Testimonials";
@@ -10,6 +11,7 @@ const Home = () => {
       <Banner></Banner>
       <Categorys></Categorys>
       <OurMenu></OurMenu>
+      <ChefRecommends></ChefRecommends>
       <Featured></Featured>
       <Testimonials></Testimonials>
     </div>
