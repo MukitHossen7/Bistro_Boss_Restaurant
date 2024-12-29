@@ -10,7 +10,7 @@ import slide5 from "../../assets/home/slide5.jpg";
 import SectionTitle from "../SectionTitle/SectionTitle";
 const Categorys = () => {
   return (
-    <div className="mt-10 pb-32">
+    <div className="mt-20 ">
       <SectionTitle
         heading="ORDER ONLINE"
         subHeading="From 11:00am to 10:00pm"
@@ -22,7 +22,7 @@ const Categorys = () => {
           clickable: true,
         }}
         modules={[Pagination]}
-        className="mySwiper mt-6"
+        className="mySwiper mt-12"
       >
         <SwiperSlide className="relative">
           <img
