@@ -16,6 +16,13 @@ app.get("/allMenu", async (req, res) => {
   const result = await bistroMenuCollections.find().toArray();
   res.send(result);
 });
+app.get("/categoryData", async (req, res) => {
+  const category = req.query.category;
+  const result = await bistroMenuCollections
+    .find({ category: category })
+    .toArray();
+  res.send(result);
+});
 app.get("/", (req, res) => {
   res.send("bistro boss server in running");
 });
