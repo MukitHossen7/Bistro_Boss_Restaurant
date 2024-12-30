@@ -9,6 +9,7 @@ import coverImg5 from "../../assets/menu/soup-bg.jpg";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import MenuDesign from "../../Components/MenuDesign/MenuDesign";
 import useMenu from "../../CustomHooks/useMenu";
+import { Link } from "react-router-dom";
 const MenuPage = () => {
   const [menu] = useMenu();
   const offers = menu.filter((item) => item.category === "offered");
@@ -42,9 +43,11 @@ const MenuPage = () => {
           ))}
         </div>
         <div className="flex justify-center">
-          <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
-            ORDER YOUR FAVOURITE FOOD
-          </button>
+          <Link to="/shop">
+            <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
+              ORDER YOUR FAVOURITE FOOD
+            </button>
+          </Link>
         </div>
       </div>
       {/* Desserts cover images */}
@@ -65,9 +68,11 @@ Desserts are a sweet course typically served at the end of a meal, enhancing the
         ))}
       </div>
       <div className="flex justify-center">
-        <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
-          ORDER YOUR FAVOURITE FOOD
-        </button>
+        <Link to="/shop">
+          <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
+            ORDER YOUR FAVOURITE FOOD
+          </button>
+        </Link>
       </div>
       {/* Pizza cover images */}
       <div className="mt-12">
@@ -86,9 +91,11 @@ Desserts are a sweet course typically served at the end of a meal, enhancing the
         ))}
       </div>
       <div className="flex justify-center">
-        <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
-          ORDER YOUR FAVOURITE FOOD
-        </button>
+        <Link to="/shop">
+          <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
+            ORDER YOUR FAVOURITE FOOD
+          </button>
+        </Link>
       </div>
       {/* salads cover images */}
       <div className="mt-12">
@@ -107,9 +114,11 @@ Desserts are a sweet course typically served at the end of a meal, enhancing the
         ))}
       </div>
       <div className="flex justify-center">
-        <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
-          ORDER YOUR FAVOURITE FOOD
-        </button>
+        <Link to="/shop">
+          <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
+            ORDER YOUR FAVOURITE FOOD
+          </button>
+        </Link>
       </div>
       {/* soups cover images */}
       <div className="mt-12">
@@ -129,9 +138,11 @@ Soups are a comforting and versatile dish made by simmering ingredients in water
         ))}
       </div>
       <div className="flex justify-center">
-        <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
-          ORDER YOUR FAVOURITE FOOD
-        </button>
+        <Link to="/shop">
+          <button className="text-base lg:text-lg font-medium  uppercase border-black  border-b-2 px-3 py-1 rounded-md mt-12">
+            ORDER YOUR FAVOURITE FOOD
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -4,8 +4,12 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import useMenu from "../../CustomHooks/useMenu";
 import FoodsCard from "../../Components/FoodsCard/Foodscard";
+import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
 const ShopPage = () => {
   const [menu] = useMenu();
+  const { category } = useParams();
+  console.log(category);
   const desserts = menu.filter((item) => item.category === "dessert");
   const pizzas = menu.filter((item) => item.category === "pizza");
   const salads = menu.filter((item) => item.category === "salad");
@@ -13,6 +17,9 @@ const ShopPage = () => {
   const drinks = menu.filter((item) => item.category === "drinks");
   return (
     <div className="pb-24">
+      <Helmet>
+        <title>Shop | BISTRO BOSS</title>
+      </Helmet>
       {/* shop banner */}
       <Cover
         img={shopBanner}
