@@ -5,16 +5,21 @@ import "react-tabs/style/react-tabs.css";
 import useMenu from "../../CustomHooks/useMenu";
 import FoodsCard from "../../Components/FoodsCard/Foodscard";
 import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router-dom";
+import { FadeLoader } from "react-spinners";
+
 const ShopPage = () => {
-  const [menu] = useMenu();
-  const { category } = useParams();
-  console.log(category);
+  const [menu, loading] = useMenu();
   const desserts = menu.filter((item) => item.category === "dessert");
   const pizzas = menu.filter((item) => item.category === "pizza");
   const salads = menu.filter((item) => item.category === "salad");
   const soups = menu.filter((item) => item.category === "soup");
   const drinks = menu.filter((item) => item.category === "drinks");
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <FadeLoader color="#11f6c6" />
+      </div>
+    );
   return (
     <div className="pb-24">
       <Helmet>
@@ -26,6 +31,7 @@ const ShopPage = () => {
         title="Our Shop"
         description="Great for a diverse food-related store?"
       ></Cover>
+
       <div className="text-center w-11/12 md:w-11/12 lg:w-11/12 xl:container mx-auto mt-24">
         <Tabs className="text-sm font-semibold">
           <TabList>
