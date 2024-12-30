@@ -11,13 +11,8 @@ const ShopPage = () => {
   const salads = menu.filter((item) => item.category === "salad");
   const soups = menu.filter((item) => item.category === "soup");
   const drinks = menu.filter((item) => item.category === "drinks");
-  console.log(desserts);
-  console.log(pizzas);
-  console.log(salads);
-  console.log(soups);
-  console.log(drinks);
   return (
-    <div className="pb-20">
+    <div className="pb-24">
       {/* shop banner */}
       <Cover
         img={shopBanner}
@@ -42,16 +37,32 @@ const ShopPage = () => {
             </div>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+              {pizzas.map((food) => (
+                <FoodsCard key={food._id} food={food}></FoodsCard>
+              ))}
+            </div>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+              {soups.map((food) => (
+                <FoodsCard key={food._id} food={food}></FoodsCard>
+              ))}
+            </div>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+              {desserts.map((food) => (
+                <FoodsCard key={food._id} food={food}></FoodsCard>
+              ))}
+            </div>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+              {drinks.map((food) => (
+                <FoodsCard key={food._id} food={food}></FoodsCard>
+              ))}
+            </div>
           </TabPanel>
         </Tabs>
       </div>
