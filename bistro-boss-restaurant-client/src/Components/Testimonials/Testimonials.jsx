@@ -8,16 +8,25 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
+import { FadeLoader } from "react-spinners";
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("reviews.json")
+    fetch("http://localhost:5000/allReview")
       .then((response) => response.json())
       .then((data) => {
         setReviews(data);
+        setLoading(false);
       });
   }, []);
-  console.log(reviews);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <FadeLoader color="#11f6c6" />
+      </div>
+    );
+  }
   return (
     <div className="mt-24">
       <SectionTitle

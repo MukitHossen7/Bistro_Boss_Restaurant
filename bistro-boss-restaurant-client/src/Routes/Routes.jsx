@@ -4,6 +4,8 @@ import Home from "../Pages/Home/Home";
 
 import MenuPage from "../Pages/MenuPage/MenuPage";
 import ShopPage from "../Pages/ShopPage/ShopPage";
+import Login from "../Pages/Login/Login";
+import AuthLayouts from "../Layouts/AuthLayouts";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,16 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: <ShopPage></ShopPage>,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <AuthLayouts></AuthLayouts>,
+    children: [
+      {
+        path: "/login",
+        element: <Login></Login>,
       },
     ],
   },
