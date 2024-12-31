@@ -12,8 +12,15 @@ app.use(cors());
 const bistroMenuCollections = client.db("bistroDB").collection("menu");
 const bistroReviewsCollections = client.db("bistroDB").collection("reviews");
 
+//get all menu data
 app.get("/allMenu", async (req, res) => {
   const result = await bistroMenuCollections.find().toArray();
+  res.send(result);
+});
+
+//get all review data
+app.get("/allReview", async (req, res) => {
+  const result = await bistroReviewsCollections.find().toArray();
   res.send(result);
 });
 app.get("/categoryData", async (req, res) => {
