@@ -5,7 +5,7 @@ import Home from "../Pages/Home/Home";
 import MenuPage from "../Pages/MenuPage/MenuPage";
 import ShopPage from "../Pages/ShopPage/ShopPage";
 import Login from "../Pages/Login/Login";
-import AuthLayouts from "../Layouts/AuthLayouts";
+import SignUp from "../Pages/SignUp/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -28,13 +28,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <AuthLayouts></AuthLayouts>,
-    children: [
-      {
-        path: "/login",
-        element: <Login></Login>,
-      },
-    ],
+    element: <Login></Login>,
+  },
+  {
+    path: "/signup",
+    element: <SignUp></SignUp>,
   },
 ]);
 
