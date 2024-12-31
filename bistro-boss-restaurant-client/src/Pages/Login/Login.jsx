@@ -1,21 +1,44 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import loginImg from "../../../src/assets/others/authentication2.png";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
+import { useEffect, useRef, useState } from "react";
 const Login = () => {
+  const [disabled, setDisabled] = useState(true);
+  const captchaRef = useRef(null);
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+  const handleCaptcha = () => {
+    const user_captcha_value = captchaRef.current.value;
+    console.log(user_captcha_value);
+    if (validateCaptcha(user_captcha_value)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
   const handleLoginForm = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
     console.log(email, password);
   };
+
   return (
     <div>
-      <div className="flex flex-col lg:flex-row  items-center justify-center min-h-screen bg-white">
+      <div className="flex flex-col lg:flex-row  items-center justify-center py-20 bg-white">
         <div className="w-full lg:w-1/2">
           <img src={loginImg}></img>
         </div>
 
-        <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900 w-full lg:w-1/2">
+        <div className="flex flex-col max-w-lg p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900 w-full lg:w-1/2">
           <div className="mb-8 text-center">
             <h1 className="my-3 text-4xl font-bold">Log In</h1>
             <p className="text-sm text-gray-400">
@@ -59,15 +82,45 @@ const Login = () => {
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900"
                 />
               </div>
+
+              <div>
+                <div className="flex justify-between">
+                  <LoadCanvasTemplate />
+                </div>
+                <input
+                  ref={captchaRef}
+                  type="text"
+                  name="captcha"
+                  autoComplete="current-password"
+                  required
+                  placeholder="Fill up this captcha"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900 mt-2"
+                />
+                <button
+                  onClick={handleCaptcha}
+                  className="btn btn-xs bg-teal-500 w-full hover:bg-teal-500"
+                >
+                  Validate
+                </button>
+              </div>
             </div>
 
             <div>
-              <button
+              {/* <button
+                disabled={disable}
                 type="submit"
                 className="bg-teal-500 w-full rounded-md py-3 text-white"
               >
                 Login
-              </button>
+              </button> */}
+              <input
+                disabled={disabled}
+                className={`w-full bg-teal-500 rounded-md text-center py-3 text-white ${
+                  disabled ? "bg-red-500" : ""
+                }`}
+                type="submit"
+                value="Login"
+              ></input>
             </div>
           </form>
           <div className="space-y-1">
