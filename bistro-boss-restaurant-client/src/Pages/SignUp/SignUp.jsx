@@ -1,17 +1,36 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../../src/assets/others/authentication2.png";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import toast from "react-hot-toast";
 const SignUp = () => {
+  const { createNewUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    console.log(data);
+    const result = await createNewUser(data.email, data.password);
+    console.log(result);
+    if (result) {
+      toast.success("Signup Successfully");
+      navigate("/");
+    }
+
+    reset();
+  };
   return (
     <div>
+      <Helmet>
+        <title>Signup | BISTRO BOSS</title>
+      </Helmet>
       <div className="flex flex-col lg:flex-row  items-center justify-center py-20 bg-white">
         <div className="w-full lg:w-1/2">
           <img src={loginImg}></img>

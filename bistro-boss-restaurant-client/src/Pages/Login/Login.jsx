@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../../src/assets/others/authentication2.png";
 import {
   loadCaptchaEnginge,
@@ -8,10 +8,13 @@ import {
 } from "react-simple-captcha";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
 const Login = () => {
   const { signInUser } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
   const captchaRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -31,7 +34,11 @@ const Login = () => {
     const password = e.target.password.value;
     try {
       const user = await signInUser(email, password);
-      console.log(user);
+      if (user) {
+        toast.success("Signup Successfully");
+        e.target.reset();
+        navigate("/");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -39,6 +46,9 @@ const Login = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Login | BISTRO BOSS</title>
+      </Helmet>
       <div className="flex flex-col lg:flex-row  items-center justify-center py-20 bg-white">
         <div className="w-full lg:w-1/2">
           <img src={loginImg}></img>
@@ -104,6 +114,7 @@ const Login = () => {
                 />
                 <button
                   onClick={handleCaptcha}
+                  type="button"
                   className="btn btn-xs bg-teal-500 w-full hover:bg-teal-500"
                 >
                   Validate
@@ -121,8 +132,8 @@ const Login = () => {
               </button> */}
               <input
                 disabled={disabled}
-                className={`w-full bg-teal-500 rounded-md text-center py-3 text-white ${
-                  disabled ? "bg-red-500" : ""
+                className={`w-full rounded-md text-center py-3 text-white ${
+                  disabled ? "bg-red-500" : " bg-teal-500 "
                 }`}
                 type="submit"
                 value="Login"
