@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import { BsCart4 } from "react-icons/bs";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -51,7 +52,11 @@ const Navbar = () => {
           </div>
 
           <div className="navbar-end gap-7">
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center hidden lg:flex items-center gap-3">
+              <div className="flex items-center gap-1">
+                <BsCart4 />
+                <div className="badge badge-secondary">+0</div>
+              </div>
               <ul className="menu menu-horizontal px-1 gap-7 font-medium">
                 <NavLink to="/">HOME</NavLink>
                 <NavLink>CONTACT US</NavLink>

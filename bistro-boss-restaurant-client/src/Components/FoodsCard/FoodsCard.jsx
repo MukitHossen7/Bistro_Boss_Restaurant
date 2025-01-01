@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 const FoodsCard = ({ food }) => {
   const { image, name, recipe, price } = food;
+  const handleAddToCart = (item) => {
+    console.log(item);
+  };
   return (
     <div>
       <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
@@ -15,7 +18,10 @@ const FoodsCard = ({ food }) => {
             {name}
           </h3>
           <p className="mb-6 text-gray-700">{recipe.slice(0, 40)}....</p>
-          <button className="inline-flex uppercase items-center font-medium text-base lg:text-lg text-[#BB8506] transition-colors duration-200 border-b-2 border-[#BB8506] px-5 rounded-lg py-2 bg-gray-200 hover:bg-[#1F2937] hover:border-b-0 hover:py-3">
+          <button
+            onClick={() => handleAddToCart(food)}
+            className="inline-flex uppercase items-center font-medium text-base lg:text-lg text-[#BB8506] transition-colors duration-200 border-b-2 border-[#BB8506] px-5 rounded-lg py-2 bg-gray-200 hover:bg-[#1F2937] hover:border-b-0 hover:py-3"
+          >
             Add to Cart
           </button>
         </div>
