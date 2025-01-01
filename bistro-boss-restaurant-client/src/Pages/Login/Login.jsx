@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../../src/assets/others/authentication2.png";
 import {
   loadCaptchaEnginge,
@@ -15,13 +15,15 @@ const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const captchaRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
   const handleCaptcha = () => {
     const user_captcha_value = captchaRef.current.value;
-    console.log(user_captcha_value);
     if (validateCaptcha(user_captcha_value)) {
       setDisabled(false);
     } else {
@@ -37,7 +39,7 @@ const Login = () => {
       if (user) {
         toast.success("Signup Successfully");
         e.target.reset();
-        navigate("/");
+        navigate(from, { replace: true });
       }
     } catch (error) {
       console.error(error);
@@ -49,6 +51,11 @@ const Login = () => {
       <Helmet>
         <title>Login | BISTRO BOSS</title>
       </Helmet>
+      <Link to="/">
+        <button className="btn bg-teal-600 hover:bg-teal-400">
+          Back to Home
+        </button>
+      </Link>
       <div className="flex flex-col lg:flex-row  items-center justify-center py-20 bg-white">
         <div className="w-full lg:w-1/2">
           <img src={loginImg}></img>

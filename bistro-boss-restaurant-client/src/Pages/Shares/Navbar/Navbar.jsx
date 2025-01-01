@@ -62,12 +62,17 @@ const Navbar = () => {
             </div>
 
             {user ? (
-              <button onClick={handleLogOut} className="btn">
+              <button
+                onClick={handleLogOut}
+                className="btn bg-teal-600 hover:bg-teal-500 text-white"
+              >
                 Logout
               </button>
             ) : (
               <Link to="/login">
-                <button className="btn">Login</button>
+                <button className="btn bg-teal-600 hover:bg-teal-500 text-white">
+                  Login
+                </button>
               </Link>
             )}
           </div>

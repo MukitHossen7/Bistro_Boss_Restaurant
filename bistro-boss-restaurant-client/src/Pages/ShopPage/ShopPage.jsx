@@ -5,7 +5,7 @@ import "react-tabs/style/react-tabs.css";
 import useMenu from "../../CustomHooks/useMenu";
 import FoodsCard from "../../Components/FoodsCard/Foodscard";
 import { Helmet } from "react-helmet-async";
-import { FadeLoader } from "react-spinners";
+import { ScaleLoader } from "react-spinners";
 
 const ShopPage = () => {
   const [menu, loading] = useMenu();
@@ -17,7 +17,7 @@ const ShopPage = () => {
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <FadeLoader color="#11f6c6" />
+        <ScaleLoader color="#0ceeb1" />
       </div>
     );
   return (
