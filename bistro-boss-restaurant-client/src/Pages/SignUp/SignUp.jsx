@@ -1,7 +1,15 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import loginImg from "../../../src/assets/others/authentication2.png";
+import { useForm } from "react-hook-form";
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
   return (
     <div>
       <div className="flex flex-col lg:flex-row  items-center justify-center py-20 bg-white">
@@ -17,24 +25,43 @@ const SignUp = () => {
             </p>
           </div>
           <form
-            noValidate=""
-            action=""
+            onSubmit={handleSubmit(onSubmit)}
             className="space-y-6 ng-untouched ng-pristine ng-valid"
           >
             <div className="space-y-4">
+              <div>
+                <label htmlFor="email" className="block mb-2 text-sm">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  {...register("name", { required: true })}
+                  placeholder="Enter Your Name Here"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900"
+                  data-temp-mail-org="0"
+                />
+                {errors.name && (
+                  <span className="text-red-500 text-sm mt-1">
+                    Name is required
+                  </span>
+                )}
+              </div>
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm">
                   Email address
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  id="email"
-                  required
+                  {...register("email", { required: true })}
                   placeholder="Enter Your Email Here"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900"
                   data-temp-mail-org="0"
                 />
+                {errors.email && (
+                  <span className="text-red-500 text-sm mt-1">
+                    Email is required
+                  </span>
+                )}
               </div>
               <div>
                 <div className="flex justify-between">
@@ -44,13 +71,28 @@ const SignUp = () => {
                 </div>
                 <input
                   type="password"
-                  name="password"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                    pattern: {
+                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$/,
+                      message:
+                        "Password must one Uppercase Lowercase & Special character",
+                    },
+                  })}
                   autoComplete="current-password"
                   id="password"
-                  required
                   placeholder="*******"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900"
                 />
+                {errors.password && (
+                  <span className="text-red-500 text-sm mt-1">
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
             </div>
 
