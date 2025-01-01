@@ -6,8 +6,10 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import { imageUpload } from "../../Api/utils";
 const SignUp = () => {
-  const { createNewUser } = useContext(AuthContext);
+  const { createNewUser, updateUserProfile, signOutUser } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const {
     register,
@@ -16,12 +18,17 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
+    const image = data.photo[0];
+    const imageURL = await imageUpload(image);
+    console.log(imageURL);
     const result = await createNewUser(data.email, data.password);
+    await updateUserProfile({ displayName: data.name, photoURL: imageURL });
     console.log(result);
     if (result) {
       toast.success("Signup Successfully");
-      navigate("/");
+      signOutUser().then(() => {
+        navigate("/login");
+      });
     }
 
     reset();
@@ -62,6 +69,24 @@ const SignUp = () => {
                 {errors.name && (
                   <span className="text-red-500 text-sm mt-1">
                     Name is required
+                  </span>
+                )}
+              </div>
+              <div>
+                <label htmlFor="email" className="block mb-2 text-sm">
+                  Image URL
+                </label>
+                <input
+                  type="file"
+                  {...register("photo", { required: true })}
+                  placeholder="Enter Your photo url Here"
+                  accept="image/*"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900"
+                  data-temp-mail-org="0"
+                />
+                {errors.name && (
+                  <span className="text-red-500 text-sm mt-1">
+                    Photo is required
                   </span>
                 )}
               </div>
@@ -126,7 +151,7 @@ const SignUp = () => {
               <input
                 className="w-full bg-teal-500 rounded-md text-center py-3 text-white"
                 type="submit"
-                value="Login"
+                value="Signup"
               ></input>
             </div>
           </form>
