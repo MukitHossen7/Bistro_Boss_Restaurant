@@ -7,6 +7,9 @@ import ShopPage from "../Pages/ShopPage/ShopPage";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoutes from "./PrivateRoutes";
+import Dashboards from "../Layouts/Dashboards";
+import UserCart from "./../Pages/Dashboard/UserCart/UserCart";
+import Revervation from "../Pages/Dashboard/Revervation/Revervation";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,20 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: <ShopPage></ShopPage>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboards></Dashboards>,
+    children: [
+      {
+        path: "userCart",
+        element: <UserCart></UserCart>,
+      },
+      {
+        path: "reservation",
+        element: <Revervation></Revervation>,
       },
     ],
   },
