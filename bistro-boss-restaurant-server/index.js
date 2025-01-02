@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { connection, client } = require("./BD/Server");
+const { ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
 connection();
@@ -36,6 +37,20 @@ app.get("/categoryData", async (req, res) => {
 app.post("/carts", async (req, res) => {
   const cart = req.body;
   const result = await addCartCollections.insertOne(cart);
+  res.send(result);
+});
+
+//get all add cart data from the cart collection
+app.get("/carts", async (req, res) => {
+  const email = req.query.email;
+  const result = await addCartCollections.find({ email: email }).toArray();
+  res.send(result);
+});
+
+//delete all add cart data from the cart collection by id
+app.delete("/carts/:id", async (req, res) => {
+  const id = req.params.id;
+  const result = await addCartCollections.deleteOne({ _id: new ObjectId(id) });
   res.send(result);
 });
 app.get("/", (req, res) => {
