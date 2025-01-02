@@ -11,6 +11,7 @@ app.use(cors());
 
 const bistroMenuCollections = client.db("bistroDB").collection("menu");
 const bistroReviewsCollections = client.db("bistroDB").collection("reviews");
+const addCartCollections = client.db("bistroDB").collection("carts");
 
 //get all menu data
 app.get("/allMenu", async (req, res) => {
@@ -28,6 +29,13 @@ app.get("/categoryData", async (req, res) => {
   const result = await bistroMenuCollections
     .find({ category: category })
     .toArray();
+  res.send(result);
+});
+
+// add to cart in addCartCollections
+app.post("/carts", async (req, res) => {
+  const cart = req.body;
+  const result = await addCartCollections.insertOne(cart);
   res.send(result);
 });
 app.get("/", (req, res) => {
