@@ -18,6 +18,7 @@ const Login = () => {
   const location = useLocation();
 
   const from = location.state?.from?.pathname || "/";
+  console.log("from user", location.state);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -138,7 +139,7 @@ const Login = () => {
                 Login
               </button> */}
               <input
-                disabled={disabled}
+                disabled={false}
                 className={`w-full rounded-md text-center py-3 text-white ${
                   disabled ? "bg-red-500" : " bg-teal-500 "
                 }`}

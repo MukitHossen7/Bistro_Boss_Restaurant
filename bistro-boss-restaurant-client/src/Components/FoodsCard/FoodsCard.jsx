@@ -1,8 +1,50 @@
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosInstance from "../../CustomHooks/useAxiosInstance";
+import toast from "react-hot-toast";
+
+// import useAxiosInstance from "../../CustomHooks/useAxiosInstance";
+
 /* eslint-disable react/prop-types */
 const FoodsCard = ({ food }) => {
   const { image, name, recipe, price } = food;
-  const handleAddToCart = (item) => {
-    console.log(item);
+  const { user } = useContext(AuthContext);
+  const axiosInstance = useAxiosInstance();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const handleAddToCart = async (item) => {
+    const { image, name, recipe, price, _id } = item;
+    if (user?.email) {
+      const cartData = {
+        foodId: _id,
+        email: user?.email,
+        image,
+        name,
+        recipe,
+        price,
+      };
+      const { data } = await axiosInstance.post("/carts", cartData);
+      console.log(data);
+      if (data.insertedId) {
+        toast.success("Add Cart Successfully");
+      }
+    } else {
+      Swal.fire({
+        title: "Please Sign In to Add to Cart",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { state: { from: location } });
+        }
+      });
+    }
   };
   return (
     <div>
