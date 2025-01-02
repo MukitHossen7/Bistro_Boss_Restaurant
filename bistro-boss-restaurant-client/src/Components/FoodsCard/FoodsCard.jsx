@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosInstance from "../../CustomHooks/useAxiosInstance";
 import toast from "react-hot-toast";
+import useCart from "../../CustomHooks/useCart";
 
 // import useAxiosInstance from "../../CustomHooks/useAxiosInstance";
 
@@ -12,6 +13,7 @@ const FoodsCard = ({ food }) => {
   const { image, name, recipe, price } = food;
   const { user } = useContext(AuthContext);
   const axiosInstance = useAxiosInstance();
+  const [, refetch] = useCart();
   const navigate = useNavigate();
   const location = useLocation();
   const handleAddToCart = async (item) => {
@@ -45,6 +47,7 @@ const FoodsCard = ({ food }) => {
         }
       });
     }
+    refetch();
   };
   return (
     <div>

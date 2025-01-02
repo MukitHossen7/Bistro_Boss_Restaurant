@@ -3,8 +3,10 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { BsCart4 } from "react-icons/bs";
+import useCart from "../../../CustomHooks/useCart";
 
 const Navbar = () => {
+  const [cartsData] = useCart();
   const { user, signOutUser } = useContext(AuthContext);
   const handleLogOut = () => {
     signOutUser().then(() => {
@@ -55,7 +57,9 @@ const Navbar = () => {
             <div className="navbar-center hidden lg:flex items-center gap-3">
               <div className="flex items-center gap-1">
                 <BsCart4 />
-                <div className="badge badge-secondary">+0</div>
+                <div className="badge badge-secondary">
+                  +{cartsData?.length}
+                </div>
               </div>
               <ul className="menu menu-horizontal px-1 gap-7 font-medium">
                 <NavLink to="/">HOME</NavLink>
