@@ -10,6 +10,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import Dashboards from "../Layouts/Dashboards";
 import UserCart from "./../Pages/Dashboard/UserCart/UserCart";
 import Revervation from "../Pages/Dashboard/Revervation/Revervation";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboards></Dashboards>,
+    element: (
+      <PrivateRoutes>
+        <Dashboards></Dashboards>
+      </PrivateRoutes>
+    ),
     children: [
       {
         path: "userCart",
@@ -45,6 +50,11 @@ const router = createBrowserRouter([
       {
         path: "reservation",
         element: <Revervation></Revervation>,
+      },
+      //Admin routes
+      {
+        path: "allUsers",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },

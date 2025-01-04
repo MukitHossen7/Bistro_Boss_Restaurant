@@ -10,13 +10,15 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
+
 const Login = () => {
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, googleLogin } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
   const captchaRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const axiosPublic = useAxiosPublic();
   const from = location.state?.from?.pathname || "/";
   console.log("from user", location.state);
 
@@ -46,7 +48,24 @@ const Login = () => {
       console.error(error);
     }
   };
-
+  const handleGoogleLogin = async () => {
+    const { user } = await googleLogin();
+    console.log(user);
+    const userData = {
+      email: user?.email,
+      displayName: user?.displayName,
+      photoURL: user?.photoURL,
+    };
+    console.log(userData);
+    try {
+      const { data: user } = await axiosPublic.post(`/users`, userData);
+      console.log(user);
+      toast.success("Google Signin Successfully");
+      navigate(from, { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <Helmet>
@@ -138,6 +157,7 @@ const Login = () => {
               >
                 Login
               </button> */}
+
               <input
                 disabled={false}
                 className={`w-full rounded-md text-center py-3 text-white ${
@@ -160,11 +180,13 @@ const Login = () => {
             </p>
             <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
           </div>
-          <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
-            <FcGoogle size={32} />
+          <button onClick={handleGoogleLogin}>
+            <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
+              <FcGoogle size={32} />
 
-            <p>Continue with Google</p>
-          </div>
+              <p>Continue with Google</p>
+            </div>
+          </button>
           <p className="px-6 text-sm text-center text-gray-400">
             Don&apos;t have an account yet?{" "}
             <Link

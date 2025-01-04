@@ -7,10 +7,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../Api/utils";
+import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
 const SignUp = () => {
-  const { createNewUser, updateUserProfile, signOutUser } =
+  const { createNewUser, updateUserProfile, googleLogin } =
     useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -24,14 +26,40 @@ const SignUp = () => {
     const result = await createNewUser(data.email, data.password);
     await updateUserProfile({ displayName: data.name, photoURL: imageURL });
     console.log(result);
-    if (result) {
-      toast.success("Signup Successfully");
-      signOutUser().then(() => {
-        navigate("/login");
-      });
+    try {
+      if (result) {
+        reset();
+        toast.success("Signup Successfully");
+        navigate("/");
+      }
+      const userData = {
+        email: data.email,
+        displayName: data.name,
+        photoURL: imageURL,
+      };
+      const { data: userInfo } = await axiosPublic.post(`/users`, userData);
+      console.log(userInfo);
+    } catch (error) {
+      console.log(error);
     }
-
-    reset();
+  };
+  const handleGoogleSignUp = async () => {
+    const { user } = await googleLogin();
+    console.log(user);
+    const userData = {
+      email: user?.email,
+      displayName: user?.displayName,
+      photoURL: user?.photoURL,
+    };
+    console.log(userData);
+    try {
+      const { data: user } = await axiosPublic.post(`/users`, userData);
+      console.log(user);
+      toast.success("Google Signup Successfully");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -163,11 +191,13 @@ const SignUp = () => {
             </p>
             <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
           </div>
-          <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
-            <FcGoogle size={32} />
+          <button onClick={handleGoogleSignUp}>
+            <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
+              <FcGoogle size={32} />
 
-            <p>Continue with Google</p>
-          </div>
+              <p>Continue with Google</p>
+            </div>
+          </button>
           <p className="px-6 text-sm text-center text-gray-400">
             Have an account yet?{" "}
             <Link
