@@ -1,18 +1,45 @@
 require("dotenv").config();
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const { connection, client } = require("./BD/Server");
 const { ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
 connection();
+
 //Middleware
 app.use(express.json());
 app.use(cors());
-app.use(cookieParser());
 
+//custom middleware
+const verifyToken = (req, res, next) => {
+  if (!req.headers.authorization) {
+    return res.status(401).send({ message: "Unauthorized" });
+  }
+
+  const token = req.headers.authorization.split(" ")[1];
+  if (!token) {
+    return res.status(401).send({ message: "Unauthorized" });
+  }
+  jwt.verify(token, process.env.TOKEN_SECRET_KEY, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ message: "Unauthorized" });
+    }
+    req.decoded = decoded;
+    next();
+  });
+};
+const verifyAdmin = async (req, res, next) => {
+  const email = req.decoded.email;
+  const query = { email: email };
+  const user = await userCollections.findOne(query);
+  const isAdmin = user.role === "admin";
+  if (!isAdmin) {
+    return res.status(403).send({ message: "Forbidden" });
+  }
+  next();
+};
 const bistroMenuCollections = client.db("bistroDB").collection("menu");
 const bistroReviewsCollections = client.db("bistroDB").collection("reviews");
 const addCartCollections = client.db("bistroDB").collection("carts");
@@ -24,7 +51,7 @@ app.post("/jwt", async (req, res) => {
   const token = jwt.sign(user, process.env.TOKEN_SECRET_KEY, {
     expiresIn: "1h",
   });
-  res.send(token);
+  res.send({ token });
 });
 
 //save users data
@@ -39,20 +66,20 @@ app.post("/users", async (req, res) => {
 });
 
 //all users get
-app.get("/users", async (req, res) => {
+app.get("/users", verifyToken, verifyAdmin, async (req, res) => {
   const result = await userCollections.find().toArray();
   res.send(result);
 });
 
 //delete users by id
-app.delete("/user/:id", async (req, res) => {
+app.delete("/user/:id", verifyToken, verifyAdmin, async (req, res) => {
   const id = req.params.id;
   const result = await userCollections.deleteOne({ _id: new ObjectId(id) });
   res.send(result);
 });
 
 //updata role
-app.patch("/user/admin/:id", async (req, res) => {
+app.patch("/user/admin/:id", verifyToken, verifyAdmin, async (req, res) => {
   const id = req.params.id;
   const filter = { _id: new ObjectId(id) };
   const updataDoc = {
@@ -62,6 +89,21 @@ app.patch("/user/admin/:id", async (req, res) => {
   };
   const result = await userCollections.updateOne(filter, updataDoc);
   res.send(result);
+});
+
+//check admin role by email
+app.get("/user/admin/:email", verifyToken, async (req, res) => {
+  const email = req.params.email;
+  if (email !== req.decoded.email) {
+    res.status(403).send({ message: "Forbidden" });
+  }
+  const query = { email: email };
+  const user = await userCollections.findOne(query);
+  if (user.role === "admin") {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
 });
 //get all menu data
 app.get("/allMenu", async (req, res) => {
