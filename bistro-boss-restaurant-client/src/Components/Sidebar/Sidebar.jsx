@@ -1,7 +1,10 @@
 import { GrLogout } from "react-icons/gr";
 import { Link } from "react-router-dom";
+import useAdmin from "../../CustomHooks/useAdmin";
 
 const Sidebar = () => {
+  const [isAdmin] = useAdmin();
+  console.log(isAdmin);
   return (
     <div>
       <hr />
@@ -9,41 +12,43 @@ const Sidebar = () => {
         <div>
           <h2 className="font-semibold">Admin Control</h2>
           {/* Nav Items */}
-          <div className="flex gap-3 flex-col justify-between flex-1 mt-6">
-            <Link to="reservation">
+          {isAdmin && (
+            <div className="flex gap-3 flex-col justify-between flex-1 mt-6">
+              <Link to="reservation">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    Admin Home
+                  </div>
+                </nav>
+              </Link>
+              <Link to="reservation">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    Add Items
+                  </div>
+                </nav>
+              </Link>
+              <Link to="userCart">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    Manage Items
+                  </div>
+                </nav>
+              </Link>
               <nav>
                 <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
-                  Admin Home
+                  Manage Bookings
                 </div>
               </nav>
-            </Link>
-            <Link to="reservation">
-              <nav>
-                <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
-                  Add Items
-                </div>
-              </nav>
-            </Link>
-            <Link to="userCart">
-              <nav>
-                <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
-                  Manage Items
-                </div>
-              </nav>
-            </Link>
-            <nav>
-              <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
-                Manage Bookings
-              </div>
-            </nav>
-            <Link to="allUsers">
-              <nav>
-                <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
-                  All Users
-                </div>
-              </nav>
-            </Link>
-          </div>
+              <Link to="allUsers">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    All Users
+                  </div>
+                </nav>
+              </Link>
+            </div>
+          )}
           <hr></hr>
           <div className="flex flex-col gap-2 mt-6">
             <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto">

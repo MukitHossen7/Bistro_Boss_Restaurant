@@ -55,7 +55,7 @@ const Navbar = () => {
 
           <div className="navbar-end gap-7">
             <div className="navbar-center hidden lg:flex items-center gap-3">
-              <Link to="/dashboard/userCart">
+              <Link to="/dashboard">
                 <div className="flex items-center gap-1">
                   <BsCart4 />
                   <div className="badge badge-secondary">
