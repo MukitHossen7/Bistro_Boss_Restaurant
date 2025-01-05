@@ -13,7 +13,32 @@ app.use(cors());
 const bistroMenuCollections = client.db("bistroDB").collection("menu");
 const bistroReviewsCollections = client.db("bistroDB").collection("reviews");
 const addCartCollections = client.db("bistroDB").collection("carts");
+const userCollections = client.db("bistroDB").collection("users");
 
+//save users data
+
+app.post("/users", async (req, res) => {
+  const user = req.body;
+  const existUsers = await userCollections.findOne({ email: user.email });
+  if (existUsers) {
+    return res.send("User already exists");
+  }
+  const result = await userCollections.insertOne(user);
+  res.send(result);
+});
+
+//all users get
+app.get("/users", async (req, res) => {
+  const result = await userCollections.find().toArray();
+  res.send(result);
+});
+
+//delete users by id
+app.delete("/user/:id", async (req, res) => {
+  const id = req.params.id;
+  const result = await userCollections.deleteOne({ _id: new ObjectId(id) });
+  res.send(result);
+});
 //get all menu data
 app.get("/allMenu", async (req, res) => {
   const result = await bistroMenuCollections.find().toArray();
