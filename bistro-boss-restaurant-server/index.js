@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const { connection, client } = require("./BD/Server");
 const { ObjectId } = require("mongodb");
@@ -9,14 +11,23 @@ connection();
 //Middleware
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 const bistroMenuCollections = client.db("bistroDB").collection("menu");
 const bistroReviewsCollections = client.db("bistroDB").collection("reviews");
 const addCartCollections = client.db("bistroDB").collection("carts");
 const userCollections = client.db("bistroDB").collection("users");
 
-//save users data
+//create token
+app.post("/jwt", async (req, res) => {
+  const user = req.body;
+  const token = jwt.sign(user, process.env.TOKEN_SECRET_KEY, {
+    expiresIn: "1h",
+  });
+  res.send(token);
+});
 
+//save users data
 app.post("/users", async (req, res) => {
   const user = req.body;
   const existUsers = await userCollections.findOne({ email: user.email });
@@ -37,6 +48,19 @@ app.get("/users", async (req, res) => {
 app.delete("/user/:id", async (req, res) => {
   const id = req.params.id;
   const result = await userCollections.deleteOne({ _id: new ObjectId(id) });
+  res.send(result);
+});
+
+//updata role
+app.patch("/user/admin/:id", async (req, res) => {
+  const id = req.params.id;
+  const filter = { _id: new ObjectId(id) };
+  const updataDoc = {
+    $set: {
+      role: "admin",
+    },
+  };
+  const result = await userCollections.updateOne(filter, updataDoc);
   res.send(result);
 });
 //get all menu data
