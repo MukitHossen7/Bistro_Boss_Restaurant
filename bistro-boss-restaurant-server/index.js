@@ -112,17 +112,37 @@ app.get("/allMenu", async (req, res) => {
 });
 
 //post all menu data to database
-app.post("/allMenu", async (req, res) => {
+app.post("/allMenu", verifyToken, verifyAdmin, async (req, res) => {
   const menu = req.body;
   const result = await bistroMenuCollections.insertOne(menu);
   res.send(result);
 });
 
+//delete data by id from bistroMenuCollections
+// app.delete("/menu/:id", verifyToken, verifyAdmin, async (req, res) => {
+//   const id = req.params.id;
+//   const filter1 = { _id: id };
+//   const filter2 = { _id: new ObjectId(id) };
+//   const query = filter1 || filter2;
+//   console.log(query);
+//   if (query) {
+//     const result = await bistroMenuCollections.deleteOne(query);
+//     res.send(result);
+//   }
+// });
+app.delete("/menu/:id", verifyToken, verifyAdmin, async (req, res) => {
+  const id = req.params.id;
+  const result = await bistroMenuCollections.deleteOne({
+    _id: new ObjectId(id),
+  });
+  res.send(result);
+});
 //get all review data
 app.get("/allReview", async (req, res) => {
   const result = await bistroReviewsCollections.find().toArray();
   res.send(result);
 });
+
 app.get("/categoryData", async (req, res) => {
   const category = req.query.category;
   const result = await bistroMenuCollections
