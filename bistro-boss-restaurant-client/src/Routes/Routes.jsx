@@ -8,11 +8,11 @@ import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoutes from "./PrivateRoutes";
 import Dashboards from "../Layouts/Dashboards";
-import UserCart from "./../Pages/Dashboard/UserCart/UserCart";
 import Revervation from "../Pages/Dashboard/Revervation/Revervation";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AddItems from "../Pages/Dashboard/AddItems/AddItems";
 import AdminRoutes from "./AdminRoutes";
+import ManageItems from "../Pages/Dashboard/ManageItems/ManageItems";
 
 const router = createBrowserRouter([
   {
@@ -46,8 +46,12 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "userCart",
-        element: <UserCart></UserCart>,
+        path: "manageItems",
+        element: (
+          <AdminRoutes>
+            <ManageItems></ManageItems>
+          </AdminRoutes>
+        ),
       },
       {
         path: "reservation",

@@ -28,7 +28,7 @@ const Sidebar = () => {
                   </div>
                 </nav>
               </Link>
-              <Link to="userCart">
+              <Link to="manageItems">
                 <nav>
                   <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
                     Manage Items
