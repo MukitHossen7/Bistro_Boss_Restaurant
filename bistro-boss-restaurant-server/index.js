@@ -111,6 +111,13 @@ app.get("/allMenu", async (req, res) => {
   res.send(result);
 });
 
+//post all menu data to database
+app.post("/allMenu", async (req, res) => {
+  const menu = req.body;
+  const result = await bistroMenuCollections.insertOne(menu);
+  res.send(result);
+});
+
 //get all review data
 app.get("/allReview", async (req, res) => {
   const result = await bistroReviewsCollections.find().toArray();
