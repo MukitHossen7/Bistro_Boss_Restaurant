@@ -1,6 +1,9 @@
+import toast from "react-hot-toast";
 import { imageUpload } from "../../../Api/utils";
+import useAxiosInstance from "../../../CustomHooks/useAxiosInstance";
 
 const AddItems = () => {
+  const axiosInstance = useAxiosInstance();
   const handleForm = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -9,8 +12,19 @@ const AddItems = () => {
     const photoURL = e.target.images.files[0];
     const category = e.target.category.value;
     const imageURL = await imageUpload(photoURL);
-    console.log(name, description, price, category, photoURL);
-    console.log("Image URL: " + imageURL);
+
+    const menuData = {
+      name,
+      recipe: description,
+      price,
+      category,
+      image: imageURL,
+    };
+    const { data } = await axiosInstance.post(`/allMenu`, menuData);
+    if (data.insertedId) {
+      toast.success("Food data added successfully");
+      e.target.reset();
+    }
   };
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
