@@ -1,12 +1,16 @@
+import { imageUpload } from "../../../Api/utils";
+
 const AddItems = () => {
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const description = e.target.description.value;
     const price = parseFloat(e.target.price.value);
-    const image = e.target.images.files[0];
+    const photoURL = e.target.images.files[0];
     const category = e.target.category.value;
-    console.log(name, description, price, category, image);
+    const imageURL = await imageUpload(photoURL);
+    console.log(name, description, price, category, photoURL);
+    console.log("Image URL: " + imageURL);
   };
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
@@ -62,7 +66,7 @@ const AddItems = () => {
           </div>
           <div className="space-y-6 flex flex-col">
             {/* Price & Quantity */}
-            <div className="flex justify-between gap-2">
+            <div className="">
               {/* Price */}
               <div className="space-y-1 text-sm">
                 <label htmlFor="price" className="block text-gray-600 ">
@@ -74,21 +78,6 @@ const AddItems = () => {
                   id="price"
                   type="number"
                   placeholder="Price per unit"
-                  required
-                />
-              </div>
-
-              {/* Quantity */}
-              <div className="space-y-1 text-sm">
-                <label htmlFor="quantity" className="block text-gray-600">
-                  Quantity
-                </label>
-                <input
-                  className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
-                  name="quantity"
-                  id="quantity"
-                  type="number"
-                  placeholder="Available quantity"
                   required
                 />
               </div>
