@@ -11,6 +11,7 @@ import Dashboards from "../Layouts/Dashboards";
 import UserCart from "./../Pages/Dashboard/UserCart/UserCart";
 import Revervation from "../Pages/Dashboard/Revervation/Revervation";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import AddItems from "../Pages/Dashboard/AddItems/AddItems";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "allUsers",
         element: <AllUsers></AllUsers>,
+      },
+      {
+        path: "addItems",
+        element: <AddItems></AddItems>,
       },
     ],
   },

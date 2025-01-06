@@ -12,7 +12,7 @@ const Sidebar = () => {
         <div>
           <h2 className="font-semibold">Admin Control</h2>
           {/* Nav Items */}
-          {isAdmin && (
+          {isAdmin ? (
             <div className="flex gap-3 flex-col justify-between flex-1 mt-6">
               <Link to="reservation">
                 <nav>
@@ -22,6 +22,42 @@ const Sidebar = () => {
                 </nav>
               </Link>
               <Link to="reservation">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    Add Items
+                  </div>
+                </nav>
+              </Link>
+              <Link to="userCart">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    Manage Items
+                  </div>
+                </nav>
+              </Link>
+              <nav>
+                <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                  Manage Bookings
+                </div>
+              </nav>
+              <Link to="allUsers">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    All Users
+                  </div>
+                </nav>
+              </Link>
+            </div>
+          ) : (
+            <div className="flex gap-3 flex-col justify-between flex-1 mt-6">
+              <Link to="reservation">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    Admin Home
+                  </div>
+                </nav>
+              </Link>
+              <Link to="addItems">
                 <nav>
                   <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
                     Add Items
