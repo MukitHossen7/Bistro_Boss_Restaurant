@@ -21,7 +21,7 @@ const Sidebar = () => {
                   </div>
                 </nav>
               </Link>
-              <Link to="reservation">
+              <Link to="addItems">
                 <nav>
                   <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
                     Add Items
@@ -57,7 +57,7 @@ const Sidebar = () => {
                   </div>
                 </nav>
               </Link>
-              <Link to="addItems">
+              <Link to="/addItems">
                 <nav>
                   <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
                     Add Items
