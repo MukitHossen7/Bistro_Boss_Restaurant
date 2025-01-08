@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import useCart from "../../../CustomHooks/useCart";
 import useAxiosInstance from "../../../CustomHooks/useAxiosInstance";
+import { Link } from "react-router-dom";
 
 const UserCart = () => {
   const axiosInstance = useAxiosInstance();
@@ -35,7 +36,15 @@ const UserCart = () => {
       <div className="flex flex-row justify-between bg-gray-100 px-3 py-2 rounded-md">
         <h2 className="font-semibold text-3xl">Items: {cartsData?.length}</h2>
         <h2 className="font-semibold text-3xl">Total Price: {totalPrice}</h2>
-        <button className="btn bg-teal-300 hover:bg-teal-400">Pay</button>
+        {cartsData.length ? (
+          <Link to="/dashboard/payment">
+            <button className="btn bg-teal-300 hover:bg-teal-400">Pay</button>
+          </Link>
+        ) : (
+          <button disabled className="btn bg-teal-300 hover:bg-teal-400">
+            Pay
+          </button>
+        )}
       </div>
       <div className="overflow-x-auto mt-6">
         <table className="table">

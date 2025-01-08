@@ -4,7 +4,6 @@ import useAdmin from "../../CustomHooks/useAdmin";
 
 const Sidebar = () => {
   const [isAdmin] = useAdmin();
-  console.log(isAdmin);
   return (
     <div>
       <hr />
