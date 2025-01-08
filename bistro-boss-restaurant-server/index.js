@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { connection, client } = require("./BD/Server");
 const { ObjectId } = require("mongodb");
 const app = express();
@@ -44,6 +45,21 @@ const bistroMenuCollections = client.db("bistroDB").collection("menu");
 const bistroReviewsCollections = client.db("bistroDB").collection("reviews");
 const addCartCollections = client.db("bistroDB").collection("carts");
 const userCollections = client.db("bistroDB").collection("users");
+
+//Payment intent API
+app.post("/create-payment-intent", async (req, res) => {
+  const { price } = req.body;
+  const amount = parseInt(price * 100);
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: amount,
+    currency: "usd",
+    payment_method_types: ["card"],
+  });
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+//Payment intent API
 
 //create token
 app.post("/jwt", async (req, res) => {
