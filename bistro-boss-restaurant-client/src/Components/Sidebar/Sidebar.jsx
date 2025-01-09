@@ -34,11 +34,13 @@ const Sidebar = () => {
                   </div>
                 </nav>
               </Link>
-              <nav>
-                <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
-                  Manage Bookings
-                </div>
-              </nav>
+              <Link to="payment-history">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    Payment History
+                  </div>
+                </nav>
+              </Link>
               <Link to="allUsers">
                 <nav>
                   <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
@@ -70,11 +72,13 @@ const Sidebar = () => {
                   </div>
                 </nav>
               </Link>
-              <nav>
-                <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
-                  Manage Bookings
-                </div>
-              </nav>
+              <Link to="/dashboard/payment-history">
+                <nav>
+                  <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
+                    Payment History
+                  </div>
+                </nav>
+              </Link>
               <Link to="allUsers">
                 <nav>
                   <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
