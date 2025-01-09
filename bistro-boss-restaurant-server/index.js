@@ -45,10 +45,14 @@ const bistroMenuCollections = client.db("bistroDB").collection("menu");
 const bistroReviewsCollections = client.db("bistroDB").collection("reviews");
 const addCartCollections = client.db("bistroDB").collection("carts");
 const userCollections = client.db("bistroDB").collection("users");
+const paymentCollections = client.db("bistroDB").collection("payments");
 
 //Payment intent API
 app.post("/create-payment-intent", async (req, res) => {
   const { price } = req.body;
+  if (!price) {
+    return res.status(400).send({ message: "Price is required" });
+  }
   const amount = parseInt(price * 100);
   const paymentIntent = await stripe.paymentIntents.create({
     amount: amount,
@@ -61,6 +65,27 @@ app.post("/create-payment-intent", async (req, res) => {
 });
 //Payment intent API
 
+//save payment info in payment collection
+app.post("/save-payment", async (req, res) => {
+  const payment = req.body;
+  const result = await paymentCollections.insertOne(payment);
+  const query = {
+    _id: {
+      $in: payment.cardIds.map((id) => new ObjectId(id)),
+    },
+  };
+  const deleteRequest = await addCartCollections.deleteMany(query);
+
+  res.send(result);
+});
+
+//get all payment data from payment collection by email
+app.get("/save-payment/:email", verifyToken, async (req, res) => {
+  const email = req.params.email;
+  const query = { email: email };
+  const payments = await paymentCollections.find(query).toArray();
+  res.send(payments);
+});
 //create token
 app.post("/jwt", async (req, res) => {
   const user = req.body;
@@ -115,7 +140,7 @@ app.get("/user/admin/:email", verifyToken, async (req, res) => {
   }
   const query = { email: email };
   const user = await userCollections.findOne(query);
-  if (user.role === "admin") {
+  if (user?.role === "admin") {
     res.send(true);
   } else {
     res.send(false);
