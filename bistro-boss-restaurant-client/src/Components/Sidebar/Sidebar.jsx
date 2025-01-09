@@ -13,7 +13,7 @@ const Sidebar = () => {
           {/* Nav Items */}
           {isAdmin ? (
             <div className="flex gap-3 flex-col justify-between flex-1 mt-6">
-              <Link to="reservation">
+              <Link to="/dashboard/adminHome">
                 <nav>
                   <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
                     Admin Home
@@ -51,10 +51,10 @@ const Sidebar = () => {
             </div>
           ) : (
             <div className="flex gap-3 flex-col justify-between flex-1 mt-6">
-              <Link to="reservation">
+              <Link to="/dashboard/userHome">
                 <nav>
                   <div className="bg-green-400 text-white font-semibold py-2 px-4 ">
-                    Admin Home
+                    User Home
                   </div>
                 </nav>
               </Link>

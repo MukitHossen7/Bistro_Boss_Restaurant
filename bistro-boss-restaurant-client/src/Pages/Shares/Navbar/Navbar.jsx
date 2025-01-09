@@ -4,10 +4,12 @@ import { AuthContext } from "../../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { BsCart4 } from "react-icons/bs";
 import useCart from "../../../CustomHooks/useCart";
+import useAdmin from "../../../CustomHooks/useAdmin";
 
 const Navbar = () => {
   const [cartsData] = useCart();
   const { user, signOutUser } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const handleLogOut = () => {
     signOutUser().then(() => {
       toast.success("Logout Successfully");
@@ -69,6 +71,12 @@ const Navbar = () => {
                 <NavLink>DASHBOARD</NavLink>
                 <NavLink to="/menu">OUR MENU</NavLink>
                 <NavLink to="/shop">OUR SHOP</NavLink>
+                {user && isAdmin && (
+                  <NavLink to="/dashboard/adminHome">Admin Dashboard</NavLink>
+                )}
+                {user && !isAdmin && (
+                  <NavLink to="/dashboard/userHome">User Dashboard</NavLink>
+                )}
               </ul>
             </div>
 
