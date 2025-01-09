@@ -4,9 +4,11 @@ import toast from "react-hot-toast";
 import useCart from "../../../CustomHooks/useCart";
 import useAxiosInstance from "../../../CustomHooks/useAxiosInstance";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const [clientSecret, setClientSecret] = useState("");
   const [paymentId, setPaymentId] = useState("");
   const { user } = useContext(AuthContext);
@@ -15,7 +17,7 @@ const CheckoutForm = () => {
   const axiosInstance = useAxiosInstance();
   const [cartsData, refetch] = useCart();
   const totalPrice = cartsData?.reduce((pre, cur) => pre + cur?.price, 0);
-  console.log(cartsData);
+
   useEffect(() => {
     if (totalPrice) {
       axiosInstance
@@ -79,6 +81,7 @@ const CheckoutForm = () => {
         if (data.insertedId) {
           toast.success("Your payment is successfully👋");
           refetch();
+          navigate("/dashboard/payment-history");
         }
       }
     }
