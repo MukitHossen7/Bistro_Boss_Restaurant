@@ -146,6 +146,29 @@ app.get("/user/admin/:email", verifyToken, async (req, res) => {
     res.send(false);
   }
 });
+
+//get all collections data in database use admin pages
+app.get("/count", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const order = await addCartCollections.estimatedDocumentCount();
+    const menu = await bistroMenuCollections.estimatedDocumentCount();
+    const user = await userCollections.estimatedDocumentCount();
+    const result = await paymentCollections
+      .aggregate([
+        {
+          $group: {
+            _id: null,
+            totalRevenue: { $sum: "$price" },
+          },
+        },
+      ])
+      .toArray();
+    const revenue = result.length > 0 ? result[0].totalRevenue : 0;
+    res.status(200).send({ order, menu, user, revenue });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
 //get all menu data
 app.get("/allMenu", async (req, res) => {
   const result = await bistroMenuCollections.find().toArray();
